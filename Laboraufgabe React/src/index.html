@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MySQL Connection</title>
+</head>
+<body>
+    <h1>Data from MySQL</h1>
+    <ul id="data-list"></ul>
+
+    <form action="CreateTable.php" method="post">
+        Tablename: <input type="text" name="tablename"><br> 
+        <input type="submit" value="Create Table">
+    </form>
+
+    <form action="SaveData.php" id="saveData" method="post">
+        Username: <input type="text" name="Username"><br>
+        Password: <input type="text" name="Password"><br>
+        Favorite Number: <input type="text" name="Favnumber" id="favn"><br>
+        <input type="submit" value="Submit">
+    </form>
+
+    <form action="getData.php" method="get">
+        <input type="submit" value="Get Data">
+    </form>
+
+    <script>
+        // Example AJAX request using JavaScript
+        fetch('/getData.php')
+            .then(response => response.json())
+            .then(data => {
+                const dataList = document.getElementById('data-list');
+                data.forEach(item => {
+                    const li = document.createElement('li');
+                    li.textContent = item.name;
+                    dataList.appendChild(li);
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    </script>
+
+    <script>
+        document.getElementById('saveData').addEventListener('submit', function(event) {
+            var ageInput = document.getElementById('favn').value;
+            if (!ageInput.match(/^\d+$/)) {
+                alert("Please only enter numeric characters for your Favorite Number! (Allowed input: 0-9)");
+                event.preventDefault();
+            }
+        });
+    </script>
+
+    <form action="saveToTextFile.php" method="post">
+        Text: <input type="text" name="text"><br>
+        <input type="submit" value="Submit">
+    </form>
+
+</body>
+</html>
