@@ -2,6 +2,7 @@
 node_modules
 build
 dist
-ssl
+ssl/*
+!.gitkeep
 mariadb
 texts.txt
